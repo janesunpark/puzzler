@@ -1,0 +1,22 @@
+.box {
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+    border: solid 4px black;
+    display: inline-block;
+    grid-row: 0; 
+  }
+  
+  .box:hover {
+    border-color: red;
+  }
+  
+  #board {
+    width: 400px;
+  }
+  
+  .btn {
+    display: block;
+    margin-bottom: 20px;
+    
+  }
