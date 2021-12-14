@@ -55,10 +55,9 @@ function App() {
 //   </div>
 // };
 
-  function setColor(color) {
-    const newState = [...state.input, { color }];
-    updateState({...state});
-  }
+  // function setColor(color, index) {
+  //   updateState({...state, input[index]: color});
+  // };
 
 
   function toggleMenu(status) {
@@ -84,7 +83,7 @@ for (let i = 0; i < Object.keys(state.input).length; i++) {
   squares.push(
   <button className='box' key={i} index={i}  style={{backgroundColor : state.input[i]}}
   onClick={() => toggleMenu(!state.showMenu)}
-  >
+  >{i}
    {/* set an onhover, if square is hovered over, the "menu" of color options will render within the square
 
    toggle function state.showMenu === false ? state.showMenu = true : state.showMenu = false
