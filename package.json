@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./server/server.js",
-    "build": "NODE_ENV=production webpack",
-    "dev": "NODE_ENV=development webpack serve --open"
+    "start": "nodemon ./server/server.js",
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "cross-env NODE_ENV=development webpack serve --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janesunpark/solo.git"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +26,7 @@
     "babel-loader": "^8.2.3",
     "cross-env": "^7.0.3",
     "css-loader": "^6.5.1",
+    "express": "^4.17.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "sass": "^1.44.0",
