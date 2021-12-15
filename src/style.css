@@ -1,4 +1,4 @@
-.box {
+.dropbtn {
   box-sizing: border-box;
   width: 100px;
   height: 100px;
@@ -6,9 +6,11 @@
   display: inline-block;
   grid-row: 3; 
   cursor: pointer;
+  /* position: relative;
+  display: inline-block; */
 }
 
-.box:hover, .box:focus {
+.dropbtn:hover, .box:focus {
   border-color: red;
 }
 

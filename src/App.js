@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import './style.css';
 import instructions from './instructions.js';
-import colors from './menu.js';
+import solutions from './solutions.js';
 
 // const express = require('express');
 // App.use(express.json());
@@ -19,7 +19,7 @@ function App() {
       puzzleId: 0,
       userId: '',
       isCompleted: false,
-      showMenu: false,
+      clickedSquare: 99,
       input: {
         0: '',
         1: '',
@@ -34,68 +34,37 @@ function App() {
     }
   );
 
-// function updateState(props) {
-//   const [ color, updateColor] = useState();
 
-//   useEffect(() => {
-//     console.log('You clicked this square!')
-//   });
-// }
-
-
-
-// const showMenu = e => {
-//   e.preventDefault()
-//   document.getElementById("myDropdown").classList.toggle("show")
-//   <div className='dropdown' id='myDropdown'>
-//       <button value="Red">Red</button>
-//       <button value="Orange">Orange</button>
-//       <button value="Yellow">Yellow</button>
-//       <button value="YellowGreen">Yellow Green</button>
-//   </div>
-// };
-
-  // function setColor(color, index) {
-  //   updateState({...state, input[index]: color});
-  // };
-
-
-  function toggleMenu(status) {
-    // const newState = [...state.showMenu, { status }]
-    updateState({...state, showMenu: status});
-    if (state.showMenu === true) {showColor()}
+  function setColor(color, idx) {
+    updateState({...state, clickedSquare: 99, input: {...state.input, [idx]: color}});
+    
   };
 
-  function showColor() {
-    const dropdown = [];
-    const dropdownColors = Object.keys(colors)
-    for (let i = 0; i < dropdownColors.length; i++) {
-      dropdown.push(<button className='dropdown-content' id='dropwdown-content' value={`${colors[i]}`}>
-      `${colors[i]}`
-      </button>)
-      }
-    return {dropdown};
-  }
+  function showColor(idx) {
+  updateState({...state, clickedSquare: idx})
+  };
 
+  function checkAnswer(puzzleId) {
+    const correctAnswers = Object.values(solutions[puzzleId]);
+    const userInput = Object.values(state.input);
+
+    
+    for (let i = 0; i < userInput.length; i += 1) {
+      if (userInput[i] !== correctAnswers[i]) {
+        alert(`Square ${i} is incorrect!`);
+      } else {
+       alert(`Great job! You solved Puzzle ${puzzleId}!`);
+      }
+    }
+    updateState({...state, isCompleted: true});
+  }
 
 const squares = [];
 for (let i = 0; i < Object.keys(state.input).length; i++) {
   squares.push(
-  <button className='box' key={i} index={i}  style={{backgroundColor : state.input[i]}}
-  onClick={() => toggleMenu(!state.showMenu)}
-  >{i}
-   {/* set an onhover, if square is hovered over, the "menu" of color options will render within the square
-
-   toggle function state.showMenu === false ? state.showMenu = true : state.showMenu = false
-  
-  1. Consider using onHover instead of onClick
-    - If box is hovered on, it will display the menu "buttons" within the square
-  2. The menu buttons, will change state based on the color selected
-
-
-  HOVERING THE SQUARE TRIGGERES THE BUTTONS SHOWING (FOR COLOR SELECTION), BASED ON COLOR SELECTION, IT PASSES STATE UP FOR THAT SPECIFIC SQUARE (AT THE INDEX) SO IT ONLY CHANGES THE BOX YOU SELECTED
-   */}
-  </button>
+  <div className='dropbtn' key={i} index={i}  style={{backgroundColor : state.input[i]}}
+  onClick={() => showColor(i)}>{i}
+  </div>
   );
 }
 
@@ -109,6 +78,22 @@ for (let i = 0; i < instructArr.length; i++) {
 return (
   <div id="board">
     {squares}
+    {state.clickedSquare !== 99 && (
+    <div className="dropdown">
+      <ul>
+        <button onClick={() => setColor('Red', state.clickedSquare)}>Red</button>
+        <button onClick={() => setColor('Orange', state.clickedSquare)}>Orange</button>
+        <button onClick={() => setColor('Yellow', state.clickedSquare)}>Yellow</button>
+        <button onClick={() => setColor('YellowGreen', state.clickedSquare)}>Yellow Green</button>
+        <button onClick={() => setColor('Green', state.clickedSquare)}>Green</button>
+        <button onClick={() => setColor('Blue', state.clickedSquare)}>Blue</button>
+        <button onClick={() => setColor('DarkBlue', state.clickedSquare)}>Dark Blue</button>
+        <button onClick={() => setColor('Purple', state.clickedSquare)}>Purple</button>
+        <button onClick={() => setColor('Pink', state.clickedSquare)}>Pink</button>
+      </ul>
+    </div>
+  )}
+    <button className='btn' onSubmit={() => checkAnswer(state.puzzleId)}>Submit</button>
     <h2>Instructions</h2>
     <ol>
     {instructSet}
