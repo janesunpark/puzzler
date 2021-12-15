@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import './style.css';
 import instructions from './instructions.js';
 import solutions from './solutions.js';
+import Modal from './Modal';
 
 // const express = require('express');
 // App.use(express.json());
@@ -20,6 +21,7 @@ function App() {
       userId: '',
       isCompleted: false,
       clickedSquare: 99,
+      openModal: false,
       input: {
         0: '',
         1: '',
@@ -44,20 +46,22 @@ function App() {
   updateState({...state, clickedSquare: idx})
   };
 
-  function checkAnswer(puzzleId) {
-    const correctAnswers = Object.values(solutions[puzzleId]);
-    const userInput = Object.values(state.input);
+  function checkAnswer(modalStatus) {
+    updateState({...state, openModal: modalStatus});
+    // const correctAnswers = Object.values(solutions[puzzleId]);
+    // const userInput = Object.values(state.input);
 
-    
-    for (let i = 0; i < userInput.length; i += 1) {
-      if (userInput[i] !== correctAnswers[i]) {
-        alert(`Square ${i} is incorrect!`);
-      } else {
-       alert(`Great job! You solved Puzzle ${puzzleId}!`);
-      }
-    }
-    updateState({...state, isCompleted: true});
+  
+    // for (let i = 0; i < userInput.length; i += 1) {
+    //   if (userInput[i] !== correctAnswers[i]) {
+    //    Alert(`Square ${i} is incorrect`);
+    //   } 
+    //   Alert(`Great job! You solved Puzzle ${puzzleId}!`);
+    // }
+    // updateState({...state, isCompleted: true});
   }
+
+
 
 const squares = [];
 for (let i = 0; i < Object.keys(state.input).length; i++) {
@@ -77,23 +81,25 @@ for (let i = 0; i < instructArr.length; i++) {
 
 return (
   <div id="board">
+    <div><button key={state.puzzleId} index={state.userId} onClick={()=>Date()}>Timer</button></div>
     {squares}
     {state.clickedSquare !== 99 && (
     <div className="dropdown">
       <ul>
-        <button onClick={() => setColor('Red', state.clickedSquare)}>Red</button>
+        <button onClick={() => setColor('Crimson', state.clickedSquare)}>Red</button>
         <button onClick={() => setColor('Orange', state.clickedSquare)}>Orange</button>
         <button onClick={() => setColor('Yellow', state.clickedSquare)}>Yellow</button>
-        <button onClick={() => setColor('YellowGreen', state.clickedSquare)}>Yellow Green</button>
-        <button onClick={() => setColor('Green', state.clickedSquare)}>Green</button>
-        <button onClick={() => setColor('Blue', state.clickedSquare)}>Blue</button>
-        <button onClick={() => setColor('DarkBlue', state.clickedSquare)}>Dark Blue</button>
-        <button onClick={() => setColor('Purple', state.clickedSquare)}>Purple</button>
-        <button onClick={() => setColor('Pink', state.clickedSquare)}>Pink</button>
+        <button onClick={() => setColor('LightGreen', state.clickedSquare)}>Yellow Green</button>
+        <button onClick={() => setColor('MediumSeaGreen', state.clickedSquare)}>Green</button>
+        <button onClick={() => setColor('Aqua', state.clickedSquare)}>Sky Blue</button>
+        <button onClick={() => setColor('DodgerBlue', state.clickedSquare)}>Blue</button>
+        <button onClick={() => setColor('DarkOrchid', state.clickedSquare)}>Purple</button>
+        <button onClick={() => setColor('Violet', state.clickedSquare)}>Pink</button>
       </ul>
     </div>
   )}
-    <button className='btn' onSubmit={() => checkAnswer(state.puzzleId)}>Submit</button>
+    <button className='btn' onSubmit={() => {checkAnswer(!state.openModal)}}>Submit</button>
+    {state.openModal && (<Modal />)}
     <h2>Instructions</h2>
     <ol>
     {instructSet}
@@ -102,5 +108,7 @@ return (
 );
 
 };
+
+
 
 export default App;
