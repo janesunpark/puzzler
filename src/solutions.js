@@ -13,15 +13,15 @@ const solutions = {
     },
 
     1: {
-        0: 'YellowGreen',
-        1: 'Orange',
-        2: 'SkyBlue',
-        3: 'Purple',
-        4: 'Red',
-        5: 'Pink',
-        6: 'Blue', 
-        7: 'Yellow',
-        8: 'Green',
+        0: 'Violet',
+        1: 'DodgerBlue',
+        2: 'DarkOrchid',
+        3: 'MediumSeaGreen',
+        4: 'Aqua',
+        5: 'Yellow',
+        6: 'Orange', 
+        7: 'Crimson',
+        8: 'LightGreen',
     },
 
     

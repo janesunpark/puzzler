@@ -11,7 +11,17 @@ const instructions = {
         
     },
 
-    
+    1: {
+        0: 'Orange does not occupy the highest-numbered Square.',
+        1: 'Green, Yellow, and Blue are not in corners.',
+        2: 'Yellow occupies a number that is higher than Blue or Green.',
+        3: 'Blue is between Purple and Pink.',
+        4: 'Red is not next to Blue, Green, or Yellow.',
+        5: 'Red occupies a Square with a number higher than Yellow.',
+        6: 'Purple is next to Yellow.',
+        7: 'Sky Blue occupies a Square with a number that is less than Orange.',
+
+    },
 }
 
 

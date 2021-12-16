@@ -146,6 +146,8 @@ return (
         <button onClick={() => setColor('DodgerBlue', state.clickedSquare)}>Blue</button>
         <button onClick={() => setColor('DarkOrchid', state.clickedSquare)}>Purple</button>
         <button onClick={() => setColor('Violet', state.clickedSquare)}>Pink</button>
+        <button onClick={() => setColor('', state.clickedSquare)}>Clear</button>
+
       </ul>
     </div>
   )}
