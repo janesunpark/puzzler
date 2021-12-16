@@ -13,7 +13,7 @@ function CompletedPrompt( { puzzleId, closeModal, clearGame } ) {
          </div>
          <div className='footer'>
              <button onClick={() => closeModal(false)}>Create Account</button>
-             <button onClick={() => closeModal(false)}>No Thanks</button>
+             <button onClick={() => clearGame(false)}>No Thanks</button>
          </div>
         </div>
      </div>

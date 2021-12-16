@@ -50,7 +50,7 @@ function App() {
   };
 
   function openModal(modalStatus) {
-    updateState({...state, openModal: modalStatus});
+    updateState({...state, isCompleted: false, incorrectAnswers: [], openModal: modalStatus});
   }
 
   function clearGame(modalStatus) {
@@ -65,7 +65,7 @@ function App() {
       7: '',
       8: '',
     }
-    updateState({ ...state, openModal: modalStatus, input: newGame });
+    updateState({ ...state, isCompleted: false, incorrectAnswers: [], openModal: modalStatus, input: newGame });
   }
 
   const correct = Object.values(solutions[state.puzzleId]);
@@ -131,6 +131,7 @@ return (
     {state.openModal && <Modal closeModal={openModal} checkAnswer={checkAnswer} />}
     {state.isCompleted && state.openModal && !state.incorrectAnswers[0] && <CompletedPrompt puzzleId={state.puzzleId} closeModal={openModal} clearGame={clearGame}/>}
     {state.incorrectAnswers[0] && state.openModal && <IncompletePrompt closeModal={openModal} incorrectAnswers={state.incorrectAnswers} clearGame={clearGame}/>}
+    <h2>Puzzle {state.puzzleId}</h2>
     <div><button key={state.puzzleId} index={state.userId} onClick={()=>Date()}>Timer</button></div>
     {squares}
     {state.clickedSquare !== 99 && (
