@@ -1,18 +1,19 @@
-import React from 'react'
+import React from 'react';
+import './style.css';
 
-function Modal() {
+function Modal( { closeModal, checkAnswer } ) {
     return (
         <div className='modalBackground'>
            <div className='modalContainer'>
-            <button> X </button>
+            {/* <button onClick={() => closeModal()}> X </button> */}
             <div className='title'>
                 <h3>Are you sure you want to submit?</h3>
             </div>
             <div className='body'>
             </div>
             <div className='footer'>
-                <button>Yes</button>
-                <button>No</button>
+                <button onClick={() => checkAnswer()}>Yes</button>
+                <button id='cancelBtn' onClick={() => closeModal()}>No</button>
             </div>
            </div>
         </div>

@@ -3,6 +3,8 @@ import './style.css';
 import instructions from './instructions.js';
 import solutions from './solutions.js';
 import Modal from './Modal';
+import CompletedPrompt from './CompletedPrompt';
+import "./IncompletePrompt";
 
 // const express = require('express');
 // App.use(express.json());
@@ -22,6 +24,7 @@ function App() {
       isCompleted: false,
       clickedSquare: 99,
       openModal: false,
+      incorrectAnswers: [],
       input: {
         0: '',
         1: '',
@@ -46,23 +49,66 @@ function App() {
   updateState({...state, clickedSquare: idx})
   };
 
-  function checkAnswer(modalStatus) {
+  function openModal(modalStatus) {
     updateState({...state, openModal: modalStatus});
-    // const correctAnswers = Object.values(solutions[puzzleId]);
-    // const userInput = Object.values(state.input);
-
-  
-    // for (let i = 0; i < userInput.length; i += 1) {
-    //   if (userInput[i] !== correctAnswers[i]) {
-    //    Alert(`Square ${i} is incorrect`);
-    //   } 
-    //   Alert(`Great job! You solved Puzzle ${puzzleId}!`);
-    // }
-    // updateState({...state, isCompleted: true});
   }
 
+  function clearGame(modalStatus) {
+    const newGame = {
+      0: '',
+      1: '',
+      2: '',
+      3: '',
+      4: '',
+      5: '',
+      6: '', 
+      7: '',
+      8: '',
+    }
+    updateState({ ...state, openModal: modalStatus, input: newGame });
+  }
+
+  const correct = Object.values(solutions[state.puzzleId]);
+
+  function checkAnswer() {
+
+    let userInput = {
+      0: false,
+      1: false,
+      2: false,
+      3: false,
+      4: false,
+      5: false,
+      6: false,
+      7: false,
+      8: false
+    }
+
+    for (let i = 0; i < correct.length; i += 1) {
+      if (state.input[i] === correct[i]) {
+        userInput[i] = true;
+      }
+    }
 
 
+    const incorrectInput = [];
+    for (const key in userInput) {
+      if (userInput[key] === false) {
+        incorrectInput.push(key);
+      }
+    };
+    
+
+    if (incorrectInput[0]) {
+      updateState({...state, incorrectAnswers: incorrectInput});
+    } else {
+      updateState({...state, incorrectAnswers: [], isCompleted: true}); 
+    }
+    
+   }
+
+
+  
 const squares = [];
 for (let i = 0; i < Object.keys(state.input).length; i++) {
   squares.push(
@@ -74,6 +120,7 @@ for (let i = 0; i < Object.keys(state.input).length; i++) {
 
 const instructArr = Object.values(instructions[state.puzzleId]);
 
+
 const instructSet = [];
 for (let i = 0; i < instructArr.length; i++) {
     instructSet.push(<li key={i} index={i}>{instructArr[i]}</li>);
@@ -81,6 +128,9 @@ for (let i = 0; i < instructArr.length; i++) {
 
 return (
   <div id="board">
+    {state.openModal && <Modal closeModal={openModal} checkAnswer={checkAnswer} />}
+    {state.isCompleted && state.openModal && !state.incorrectAnswers[0] && <CompletedPrompt puzzleId={state.puzzleId} closeModal={openModal} clearGame={clearGame}/>}
+    {state.incorrectAnswers[0] && state.openModal && <IncompletePrompt closeModal={openModal} incorrectAnswers={state.incorrectAnswers} clearGame={clearGame}/>}
     <div><button key={state.puzzleId} index={state.userId} onClick={()=>Date()}>Timer</button></div>
     {squares}
     {state.clickedSquare !== 99 && (
@@ -98,8 +148,7 @@ return (
       </ul>
     </div>
   )}
-    <button className='btn' onSubmit={() => {checkAnswer(!state.openModal)}}>Submit</button>
-    {state.openModal && (<Modal />)}
+    <button className='btn' onClick={() => openModal(!state.openModal)}>Submit</button>
     <h2>Instructions</h2>
     <ol>
     {instructSet}
@@ -108,6 +157,7 @@ return (
 );
 
 };
+import IncompletePrompt from "./IncompletePrompt";
 
 
 

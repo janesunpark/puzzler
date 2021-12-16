@@ -1,14 +1,15 @@
 const solutions = {
+
     0: {
-        0: 'Red',
+        0: 'LightGreen',
         1: 'Orange',
-        2: 'Yellow',
-        3: 'YellowGreen',
-        4: 'Green',
-        5: 'SkyBlue',
-        6: 'Blue',
-        7: 'Purple',
-        8: 'Pink'
+        2: 'Aqua',
+        3: 'DarkOrchid',
+        4: 'Crimson',
+        5: 'Violet',
+        6: 'DodgerBlue',
+        7: 'Yellow',
+        8: 'MediumSeaGreen'
     },
 
     1: {
@@ -24,4 +25,9 @@ const solutions = {
     },
 
     
+    
 };
+
+
+
+export default solutions;
