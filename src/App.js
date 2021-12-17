@@ -10,7 +10,7 @@ import "./IncompletePrompt";
 function App() {
   const [state, updateState] = useState(
     {
-      puzzleId: 0,
+      puzzleId: 1,
       userId: '',
       isCompleted: false,
       clickedSquare: 99,
@@ -129,7 +129,7 @@ return (
     {state.isCompleted && state.openModal && !state.incorrectAnswers[0] && <CompletedPrompt puzzleId={state.puzzleId} closeModal={openModal} clearGame={clearGame} createAccount={createAccount}/>}
     {state.incorrectAnswers[0] && state.openModal && <IncompletePrompt closeModal={openModal} incorrectAnswers={state.incorrectAnswers} clearGame={clearGame}/>}
     <h2>Puzzle {state.puzzleId}</h2>
-    <div><button key={state.puzzleId} index={state.userId} onClick={()=>Date()}>Timer</button></div>
+    <div><button key={state.puzzleId} index={state.userId} onClick={() => clearGame()}>New Game</button></div>
     {squares}
     {state.clickedSquare !== 99 && (
     <div className="dropdown">

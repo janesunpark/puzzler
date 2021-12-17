@@ -17,9 +17,9 @@ const instructions = {
         2: 'Yellow occupies a number that is higher than Blue or Green.',
         3: 'Blue is between Purple and Pink.',
         4: 'Red is not next to Blue, Green, or Yellow.',
-        5: 'Sky Blue occupies a Square less than Orange.',
+        5: 'Sky Blue occupies a Square with a number less than Orange.',
         6: 'Purple is next to Yellow.',
-        7: 'Red is not in Square 0 or 5',
+        7: 'Red is not in Square 0 or 5.',
 
     },
 }
