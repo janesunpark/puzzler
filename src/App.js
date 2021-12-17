@@ -6,15 +6,6 @@ import Modal from './Modal';
 import CompletedPrompt from './CompletedPrompt';
 import "./IncompletePrompt";
 
-// const express = require('express');
-// App.use(express.json());
-
-// //displays 
-
-//  app.get('/', function (req, res) {
-//    res.send('<>');
-//  });
-
 
 function App() {
   const [state, updateState] = useState(
@@ -107,6 +98,12 @@ function App() {
     
    }
 
+   function createAccount() {
+    fetch('http://localhost:3001/createAccount')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .then(updateState(...state, { openModal: false } ));
+   }
 
   
 const squares = [];
@@ -129,7 +126,7 @@ for (let i = 0; i < instructArr.length; i++) {
 return (
   <div id="board">
     {state.openModal && <Modal closeModal={openModal} checkAnswer={checkAnswer} />}
-    {state.isCompleted && state.openModal && !state.incorrectAnswers[0] && <CompletedPrompt puzzleId={state.puzzleId} closeModal={openModal} clearGame={clearGame}/>}
+    {state.isCompleted && state.openModal && !state.incorrectAnswers[0] && <CompletedPrompt puzzleId={state.puzzleId} closeModal={openModal} clearGame={clearGame} createAccount={createAccount}/>}
     {state.incorrectAnswers[0] && state.openModal && <IncompletePrompt closeModal={openModal} incorrectAnswers={state.incorrectAnswers} clearGame={clearGame}/>}
     <h2>Puzzle {state.puzzleId}</h2>
     <div><button key={state.puzzleId} index={state.userId} onClick={()=>Date()}>Timer</button></div>

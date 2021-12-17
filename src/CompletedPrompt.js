@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CompletedPrompt( { puzzleId, closeModal, clearGame } ) {
+function CompletedPrompt( { puzzleId, closeModal, clearGame, createAccount } ) {
     return (
      <div className='modalBackground'>
         <div className='modalContainer'>
@@ -12,7 +12,7 @@ function CompletedPrompt( { puzzleId, closeModal, clearGame } ) {
              <p>Create an account to play again!</p>
          </div>
          <div className='footer'>
-             <button onClick={() => closeModal(false)}>Create Account</button>
+             <button onClick={() => createAccount()}>Create Account</button>
              <button onClick={() => clearGame(false)}>No Thanks</button>
          </div>
         </div>
