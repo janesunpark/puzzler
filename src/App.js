@@ -4,6 +4,7 @@ import instructions from './instructions.js';
 import solutions from './solutions.js';
 import Modal from './Modal';
 import CompletedPrompt from './CompletedPrompt';
+import createAccount from './createAccount.js';
 import "./IncompletePrompt";
 
 
@@ -42,6 +43,10 @@ function App() {
 
   function openModal(modalStatus) {
     updateState({...state, isCompleted: false, incorrectAnswers: [], openModal: modalStatus});
+  }
+
+  function addUser(newUser) {
+    updateState({...state, userId: newUser, isCompleted: false, incorrectAnswers: [], openModal: false})
   }
 
   function clearGame(modalStatus) {
@@ -98,11 +103,11 @@ function App() {
     
    }
 
-   function createAccount() {
+   function createAccountPage() {
     fetch('http://localhost:3001/createAccount')
     .then(response => response.json())
     .then(data => console.log(data))
-    .then(updateState(...state, { openModal: false } ));
+    .then(updateState(...state, { openModal: false, userId: data.username } ));
    }
 
   
@@ -125,8 +130,9 @@ for (let i = 0; i < instructArr.length; i++) {
 
 return (
   <div id="board">
+    {/* {state.isCompleted && <createAccount addUser={addUser} />} */}
     {state.openModal && <Modal closeModal={openModal} checkAnswer={checkAnswer} />}
-    {state.isCompleted && state.openModal && !state.incorrectAnswers[0] && <CompletedPrompt puzzleId={state.puzzleId} closeModal={openModal} clearGame={clearGame} createAccount={createAccount}/>}
+    {state.isCompleted && state.openModal && !state.incorrectAnswers[0] && <CompletedPrompt puzzleId={state.puzzleId} closeModal={openModal} clearGame={clearGame} createAccountPage={createAccountPage}/>}
     {state.incorrectAnswers[0] && state.openModal && <IncompletePrompt closeModal={openModal} incorrectAnswers={state.incorrectAnswers} clearGame={clearGame}/>}
     <h2>Puzzle {state.puzzleId}</h2>
     <div><button key={state.puzzleId} index={state.userId} onClick={() => clearGame()}>New Game</button></div>
@@ -158,6 +164,7 @@ return (
 
 };
 import IncompletePrompt from "./IncompletePrompt";
+import { startSession } from "mongoose";
 
 
 
